@@ -4,193 +4,61 @@
     "elements": [
       {
         "description": "",
-        "id": "login-functionality;user-logs-into-the-application-successfully",
-        "keyword": "Scenario",
-        "line": 5,
-        "name": "User logs into the application successfully",
+        "id": "user-login;user-is-not-able-to-log-in-with-invalid-credentials",
+        "keyword": "Scenario Outline",
+        "line": 11,
+        "name": "User is not able to log in with invalid credentials",
         "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 2729958499
-            }
-          },
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 636138700
-            }
-          },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 6,
+            "line": 4,
             "name": "I navigate to the login page",
+            "match": {
+              "location": "tests\\step-definitions\\LoginPage.steps.js:16"
+            },
             "result": {
-              "status": "ambiguous",
-              "duration": 0
+              "status": "passed",
+              "duration": 8717892599
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 7,
-            "name": "I fill in the username and password",
+            "line": 5,
+            "name": "I fill in the username \"xzy@gmail.com\" and password \"TesMeTest\"",
+            "match": {
+              "location": "tests\\step-definitions\\LoginPage.steps.js:24"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 137090599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 6,
+            "name": "I click the login button",
             "match": {
               "location": "tests\\step-definitions\\LoginPage.steps.js:30"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 8,
-            "name": "I click the login button",
-            "result": {
-              "status": "ambiguous",
-              "duration": 0
+              "status": "passed",
+              "duration": 1555737800
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 9,
-            "name": "I should see the dashboard page",
-            "match": {
-              "location": "tests\\step-definitions\\LoginPage.steps.js:41"
-            },
-            "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 205168599
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 380600
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 495129699
-            }
-          }
-        ],
-        "tags": [
-          {
-            "name": "@Login",
-            "line": 1
-          },
-          {
-            "name": "@SuccessfulLogin",
-            "line": 4
-          }
-        ],
-        "type": "scenario"
-      }
-    ],
-    "id": "login-functionality",
-    "line": 2,
-    "keyword": "Feature",
-    "name": "Login Functionality",
-    "tags": [
-      {
-        "name": "@Login",
-        "line": 1
-      }
-    ],
-    "uri": "tests\\features\\LoginPage.feature"
-  },
-  {
-    "description": "",
-    "elements": [
-      {
-        "description": "",
-        "id": "login-with-invalid-credentials;user-is-not-able-to-log-in-with-invalid-credentials",
-        "keyword": "Scenario Outline",
-        "line": 13,
-        "name": "User is not able to log in with invalid credentials",
-        "steps": [
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 571141800
-            }
-          },
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 362775800
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 6,
-            "name": "I navigate to the login page",
-            "result": {
-              "status": "ambiguous",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
             "line": 7,
-            "name": "I fill in the username \"xzy@gmail.com\" and password \"TesMeTest\"",
-            "match": {
-              "location": "tests\\step-definitions\\ScenarioOutline.steps.js:46"
-            },
-            "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 8,
-            "name": "I click the login button",
-            "result": {
-              "status": "ambiguous",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 9,
             "name": "I should see an error message indicating that the login failed",
             "match": {
-              "location": "tests\\step-definitions\\ScenarioOutline.steps.js:57"
+              "location": "tests\\step-definitions\\LoginPage.steps.js:38"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 52269599
             }
           },
           {
@@ -198,7 +66,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 143675399
+              "duration": 709199
             }
           },
           {
@@ -206,98 +74,70 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 416466599
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "failed",
-              "duration": 1552100,
-              "error_message": "page.screenshot: Target page, context or browser has been closed\n    at captureScreenshot (D:\\UI_Automation\\tests\\step-definitions\\LoginPage.steps.js:15:16)\n    at World.<anonymous> (D:\\UI_Automation\\tests\\step-definitions\\LoginPage.steps.js:52:15)"
+              "duration": 543393199
             }
           }
         ],
-        "tags": [
-          {
-            "name": "@InvalidLogin",
-            "line": 1
-          },
-          {
-            "name": "@InvalidCredentials",
-            "line": 4
-          }
-        ],
+        "tags": [],
         "type": "scenario"
       },
       {
         "description": "",
-        "id": "login-with-invalid-credentials;user-is-not-able-to-log-in-with-invalid-credentials",
+        "id": "user-login;user-is-not-able-to-log-in-with-invalid-credentials",
         "keyword": "Scenario Outline",
-        "line": 14,
+        "line": 12,
         "name": "User is not able to log in with invalid credentials",
         "steps": [
           {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 555222600
-            }
-          },
-          {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 348425599
-            }
-          },
-          {
             "arguments": [],
             "keyword": "Given ",
-            "line": 6,
+            "line": 4,
             "name": "I navigate to the login page",
+            "match": {
+              "location": "tests\\step-definitions\\LoginPage.steps.js:16"
+            },
             "result": {
-              "status": "ambiguous",
-              "duration": 0
+              "status": "passed",
+              "duration": 5800084800
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 7,
-            "name": "I fill in the username \"srk@testroverautomation.com\" and password \"Jawan123\"",
+            "line": 5,
+            "name": "I fill in the username \"srk@test.com\" and password \"Jawan123\"",
             "match": {
-              "location": "tests\\step-definitions\\ScenarioOutline.steps.js:46"
+              "location": "tests\\step-definitions\\LoginPage.steps.js:24"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 160626299
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 8,
+            "line": 6,
             "name": "I click the login button",
+            "match": {
+              "location": "tests\\step-definitions\\LoginPage.steps.js:30"
+            },
             "result": {
-              "status": "ambiguous",
-              "duration": 0
+              "status": "passed",
+              "duration": 2110257000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 9,
+            "line": 7,
             "name": "I should see an error message indicating that the login failed",
             "match": {
-              "location": "tests\\step-definitions\\ScenarioOutline.steps.js:57"
+              "location": "tests\\step-definitions\\LoginPage.steps.js:38"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 99492799
             }
           },
           {
@@ -305,7 +145,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 149289400
+              "duration": 407400
             }
           },
           {
@@ -313,43 +153,20 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 450811099
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "failed",
-              "duration": 1593100,
-              "error_message": "page.screenshot: Target page, context or browser has been closed\n    at captureScreenshot (D:\\UI_Automation\\tests\\step-definitions\\LoginPage.steps.js:15:16)\n    at World.<anonymous> (D:\\UI_Automation\\tests\\step-definitions\\LoginPage.steps.js:52:15)"
+              "duration": 832810900
             }
           }
         ],
-        "tags": [
-          {
-            "name": "@InvalidLogin",
-            "line": 1
-          },
-          {
-            "name": "@InvalidCredentials",
-            "line": 4
-          }
-        ],
+        "tags": [],
         "type": "scenario"
       }
     ],
-    "id": "login-with-invalid-credentials",
-    "line": 2,
+    "id": "user-login",
+    "line": 1,
     "keyword": "Feature",
-    "name": "Login with invalid credentials",
-    "tags": [
-      {
-        "name": "@InvalidLogin",
-        "line": 1
-      }
-    ],
-    "uri": "tests\\features\\ScenarioOutline.feature"
+    "name": "User Login",
+    "tags": [],
+    "uri": "tests\\features\\LoginPage.feature"
   },
   {
     "description": "",
@@ -362,24 +179,16 @@
         "name": "User can perform a search on Google",
         "steps": [
           {
-            "keyword": "Before",
-            "hidden": true,
-            "result": {
-              "status": "passed",
-              "duration": 355361300
-            }
-          },
-          {
             "arguments": [],
             "keyword": "Given ",
             "line": 4,
             "name": "I navigate to the Google homepage",
             "match": {
-              "location": "tests\\step-definitions\\SearchPage.steps.js:23"
+              "location": "tests\\step-definitions\\SearchPage.steps.js:6"
             },
             "result": {
               "status": "passed",
-              "duration": 2198017200
+              "duration": 5998842800
             }
           },
           {
@@ -388,12 +197,11 @@
             "line": 5,
             "name": "I search for \"Github\"",
             "match": {
-              "location": "tests\\step-definitions\\SearchPage.steps.js:27"
+              "location": "tests\\step-definitions\\SearchPage.steps.js:24"
             },
             "result": {
-              "status": "failed",
-              "duration": 10015087899,
-              "error_message": "Error: function timed out, ensure the promise resolves within 10000 milliseconds\n    at Timeout.<anonymous> (D:\\UI_Automation\\node_modules\\@cucumber\\cucumber\\lib\\time.js:54:20)\n    at listOnTimeout (node:internal/timers:581:17)\n    at process.processTimers (node:internal/timers:519:7)"
+              "status": "passed",
+              "duration": 2616959399
             }
           },
           {
@@ -405,8 +213,8 @@
               "location": "tests\\step-definitions\\SearchPage.steps.js:33"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 29800599
             }
           },
           {
@@ -414,34 +222,19 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 176499100
+              "duration": 502437300
             }
           },
           {
             "keyword": "After",
             "hidden": true,
             "result": {
-              "status": "failed",
-              "duration": 1507300,
-              "error_message": "page.screenshot: Target page, context or browser has been closed\n    at captureScreenshot (D:\\UI_Automation\\tests\\step-definitions\\ScenarioOutline.steps.js:32:16)\n    at World.<anonymous> (D:\\UI_Automation\\tests\\step-definitions\\ScenarioOutline.steps.js:66:15)"
-            }
-          },
-          {
-            "keyword": "After",
-            "hidden": true,
-            "result": {
-              "status": "failed",
-              "duration": 766599,
-              "error_message": "page.screenshot: Target page, context or browser has been closed\n    at captureScreenshot (D:\\UI_Automation\\tests\\step-definitions\\LoginPage.steps.js:15:16)\n    at World.<anonymous> (D:\\UI_Automation\\tests\\step-definitions\\LoginPage.steps.js:52:15)"
+              "status": "passed",
+              "duration": 3591699
             }
           }
         ],
-        "tags": [
-          {
-            "name": "@SearchPage",
-            "line": 2
-          }
-        ],
+        "tags": [],
         "type": "scenario"
       }
     ],

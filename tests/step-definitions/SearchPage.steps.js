@@ -1,48 +1,45 @@
-const { Given, When, Then, Before, After, setDefaultTimeout } = require('@cucumber/cucumber');
-
-setDefaultTimeout(10000); // Set default timeout to 10 seconds
-
-const { expect } = require('@playwright/test');
+const { Given, When, Then, After } = require('@cucumber/cucumber');
 const { chromium } = require('playwright');
-const path = require('path');
 
-let page;
-let browser;
+let browser, context, page;
 
-// Function to capture screenshots
-const captureScreenshot = async (name) => {
-    const screenshotPath = path.join(__dirname, '..', 'reports', `${name}.png`);
-    await page.screenshot({ path: screenshotPath });
-};
+Given('I navigate to the Google homepage', { timeout: 20000 }, async () => {
+  console.log('Launching browser...');
+  browser = await chromium.launch({ headless: false });
+  context = await browser.newContext();
+  page = await context.newPage();
 
-Before(async () => {
-    browser = await chromium.launch({ headless: true });
-    page = await browser.newPage();
+  console.log('Navigating to Google...');
+  await page.goto('https://www.google.com', { waitUntil: 'networkidle', timeout: 20000 });
+
+  const isVisible = await page.isVisible('textarea[name="q"]', { timeout: 10000 });
+  console.log(`Search input visible: ${isVisible}`);
+  if (!isVisible) {
+      throw new Error('Google search input is not visible');
+  }
 });
 
-Given('I navigate to the Google homepage',{ timeout: 10000 }, async () => {
-    await page.goto('https://www.google.com');
-});
+
 
 When('I search for {string}', async (searchTerm) => {
-    await page.waitForSelector('input[name="q"]');
-    await page.fill('input[name="q"]', searchTerm);
-    await page.press('input[name="q"]', 'Enter');
+  // Wait for the textarea to be visible
+  await page.waitForSelector('textarea[name="q"]', { state: 'visible', timeout: 10000 });
+  await page.fill('textarea[name="q"]', searchTerm); // Updated to use textarea
+  await page.press('textarea[name="q"]', 'Enter'); // Updated to use textarea
+  await page.waitForTimeout(2000); // Optional: Wait for results to load
 });
+
 
 Then('I should see search results related to {string}', async (searchTerm) => {
-    await page.waitForSelector('h3.LC20lb.MBeuO.DKV0Md');
-
-    const resultTitles = await page.locator('h3.LC20lb.MBeuO.DKV0Md').allTextContents();
-    const hasResult = resultTitles.some(title => title.toLowerCase().includes(searchTerm.toLowerCase()));
-
-    expect(hasResult).toBeTruthy();
+    const resultVisible = await page.isVisible(`h3.LC20lb:has-text("${searchTerm}")`);
+    if (!resultVisible) {
+        throw new Error(`Search results for "${searchTerm}" are not visible`);
+    }
 });
 
+// After hook to close the browser
 After(async () => {
-    if (page) {
-        await captureScreenshot('google_search_results');
-        await page.close();
-        await browser.close(); // Ensure proper cleanup
+    if (browser) {
+        await browser.close();
     }
 });

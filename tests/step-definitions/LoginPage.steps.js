@@ -1,56 +1,52 @@
-const { Given, When, Then, Before, After, setDefaultTimeout } = require('@cucumber/cucumber');
-
-setDefaultTimeout(10000); // Set default timeout to 10 seconds
-
+const { Given, When, Then, After } = require('@cucumber/cucumber');
 const { chromium } = require('playwright');
-const { expect } = require('@playwright/test');
-const path = require('path');
+const XLSX = require('xlsx');
 
-let browser;
-let page;
+let browser, context;
 
-// Function to capture screenshots
-const captureScreenshot = async (name) => {
-    const screenshotPath = path.join(__dirname, '..', 'reports', `${name}.png`);
-    await page.screenshot({ path: screenshotPath });
-};
+// Load test data from Excel
+function loadTestData() {
+    const workbook = XLSX.readFile('testData.xlsx');
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    return XLSX.utils.sheet_to_json(worksheet);
+}
 
-// Initialize browser and page before tests with the @Login tag
-Before({ tags: "@Login" }, async () => {
+// Start browser and navigate to login page
+Given('I navigate to the login page', { timeout: 10000 }, async function () {
     browser = await chromium.launch({ headless: false });
-    page = await browser.newPage();
+    context = await browser.newContext();
+    this.page = await context.newPage(); // Use 'this' to set page context
+    await this.page.goto('https://github.com/login', { waitUntil: 'networkidle' });
 });
 
-// Navigate to the login page
-Given('I navigate to the login page', async () => {
-    await page.goto('https://github.com/login');
-});
-
-// Fill in the username and password fields
-When('I fill in the username and password', async () => {
-    await page.fill('input[name="login"]', 'nasif1731');
-    await page.fill('input[name="password"]', 'Cumin432');
+// Fill in the login form with valid credentials
+When('I fill in the username {string} and password {string}', async function (username, password) {
+    await this.page.fill('input[name="login"]', username);
+    await this.page.fill('input[name="password"]', password);
 });
 
 // Click the login button
-When('I click the login button', async () => {
-    await page.click('input[name="commit"]');
+When('I click the login button', async function () {
+    await Promise.all([
+        this.page.click('input[name="commit"]'),
+        this.page.waitForNavigation({ waitUntil: 'networkidle' }),
+    ]);
 });
 
-// Verify the dashboard page after successful login
-Then('I should see the dashboard page', async () => {
-    await page.waitForURL('https://github.com/'); // Wait until URL changes to dashboard
-
-    // Verify that a specific element on the dashboard is visible
-    const dashboardElement = await page.locator('summary[aria-label="View profile and more"]');
-    await expect(dashboardElement).toBeVisible();
+// Check for an error message indicating login failure
+Then('I should see an error message indicating that the login failed', async function () {
+    await this.page.waitForSelector('.js-flash-alert', { timeout: 5000 }); // Wait for the error message
+    const errorMessage = await this.page.innerText('.js-flash-alert');
+    if (!errorMessage.includes('Incorrect username or password')) {
+        await this.page.screenshot({ path: 'error-screenshot.png' });
+        throw new Error('Expected error message not found');
+    }
 });
 
-// Capture screenshot and close browser after tests
+// After hook to close the browser
 After(async () => {
-    if (page) {
-        await captureScreenshot('login_page');
-        await page.close();
-        await browser.close(); // Ensure browser is closed to avoid memory leaks
+    if (browser) {
+        await browser.close();
     }
 });

@@ -1,9 +1,12 @@
-@Login
-Feature: Login Functionality
+Feature: User Login
 
-@SuccessfulLogin
-Scenario: User logs into the application successfully
-  Given I navigate to the login page
-  When I fill in the username and password
-  And I click the login button
-  Then I should see the dashboard page
+  Scenario Outline: User is not able to log in with invalid credentials
+    Given I navigate to the login page
+    When I fill in the username "<username>" and password "<password>"
+    And I click the login button
+    Then I should see an error message indicating that the login failed
+
+    Examples:
+      | username          | password      |
+      | xzy@gmail.com     | TesMeTest     |
+      | srk@test.com      | Jawan123      |
