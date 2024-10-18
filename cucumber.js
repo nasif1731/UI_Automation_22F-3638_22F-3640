@@ -1,21 +1,21 @@
 const { setDefaultTimeout } = require('@cucumber/cucumber');
-const allure = require('allure-cucumberjs');
 
-// Set Allure options
-allure.setOptions({
-    outputDir: 'allure-results', // Ensure this directory exists
-});
-setDefaultTimeout(60000); // Set timeout for each step
 
+
+
+// Configure Cucumber
 module.exports = {
     default: {
-      require: ["tests/steps-definitions/*.steps.js","node_modules/allure-cucumberjs/dist/index.js"], // Path to step definitions
-      format: ['html:cucumber-report.html',
-      '@wdio/allure-reporter',
-      'json:allure-results.json'
-      ], // Output for report
-      
-      paths: ['tests/features/*.feature'], // Path to feature files
+        require: [
+            'tests/step-definitions/*.steps.js', // Path to step definitions
+        ],
+        format: [
+            'html:cucumber-report.html', // For default Cucumber HTML report
+            'json:./cucumber-report.json', // JSON report output
+          
+        ],
+        paths: ['tests/features/*.feature'], // Path to feature files
+        // Set the output directory for Allure results
+        outputDir: 'results',
     },
-  };
-  
+};

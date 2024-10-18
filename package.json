@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js test"
-  },
+    "test": "cucumber-js",
+    "generate-report": "node generateReport.js"
+}
+,
   "cucumber": {
     "require": [
       "tests/step-definitions/*.steps.js"
@@ -18,9 +20,6 @@
     "@cucumber/cucumber": "^11.0.1",
     "@playwright/test": "^1.48.1",
     "@types/node": "^22.7.5",
-    "@wdio/allure-reporter": "^9.1.3",
-    "allure-commandline": "^2.30.0",
-    "allure-cucumberjs": "^3.0.5",
     "cucumber-html-reporter": "^7.2.0",
     "playwright": "^1.48.1",
     "playwright-bdd": "^7.5.0",

@@ -1,57 +1,48 @@
-const { Given, When, Then } = require('@cucumber/cucumber');
+const { Given, When, Then, Before, After, setDefaultTimeout } = require('@cucumber/cucumber');
+
+setDefaultTimeout(10000); // Set default timeout to 10 seconds
+
 const { expect } = require('@playwright/test');
-const { allure } = require('allure-cucumberjs'); 
+const { chromium } = require('playwright');
+const path = require('path');
 
 let page;
-allure.setOptions({
-    outputDir: 'allure-results', 
+let browser;
+
+// Function to capture screenshots
+const captureScreenshot = async (name) => {
+    const screenshotPath = path.join(__dirname, '..', 'reports', `${name}.png`);
+    await page.screenshot({ path: screenshotPath });
+};
+
+Before(async () => {
+    browser = await chromium.launch({ headless: true });
+    page = await browser.newPage();
 });
-Given('I navigate to the Google homepage', async () => {
-  const { chromium } = require('playwright');
-  const browser = await chromium.launch({ headless: true });
-  page = await browser.newPage();
-  await page.goto('https://www.google.com');
-  
-  allure.step('Navigate to Google homepage'); 
+
+Given('I navigate to the Google homepage',{ timeout: 10000 }, async () => {
+    await page.goto('https://www.google.com');
 });
 
 When('I search for {string}', async (searchTerm) => {
-  await page.waitForSelector('input[name="q"]');
-  await page.fill('input[name="q"]', searchTerm); 
-  await page.press('input[name="q"]', 'Enter'); 
-
-  allure.step(`Search for "${searchTerm}"`); 
+    await page.waitForSelector('input[name="q"]');
+    await page.fill('input[name="q"]', searchTerm);
+    await page.press('input[name="q"]', 'Enter');
 });
 
 Then('I should see search results related to {string}', async (searchTerm) => {
-  await page.waitForSelector('h3.LC20lb.MBeuO.DKV0Md'); 
+    await page.waitForSelector('h3.LC20lb.MBeuO.DKV0Md');
 
-  const resultTitles = await page.locator('h3.LC20lb.MBeuO.DKV0Md').allTextContents();
-  
-  console.log('Search Result Titles:', resultTitles);
+    const resultTitles = await page.locator('h3.LC20lb.MBeuO.DKV0Md').allTextContents();
+    const hasResult = resultTitles.some(title => title.toLowerCase().includes(searchTerm.toLowerCase()));
 
-  const hasResult = resultTitles.some(title => title.toLowerCase().includes(searchTerm.toLowerCase()));
-  
-  console.log('Does any title contain the search term?', hasResult); // Log the result of the check
-
-  expect(hasResult).toBe(true); 
-  
-  allure.step(`Verify search results contain "${searchTerm}"`); // Add Allure step
-  await page.close();
-});
-
-
-const { Before, After } = require('@cucumber/cucumber');
-
-Before(() => {
-  allure.label('feature', 'Google Search'); 
-  allure.label('owner', 'Your Name'); 
-  allure.tag('smoke'); 
+    expect(hasResult).toBeTruthy();
 });
 
 After(async () => {
-  if (page) {
-    const screenshot = await page.screenshot();
-    allure.addAttachment('Screenshot', screenshot, 'image/png'); 
-  }
+    if (page) {
+        await captureScreenshot('google_search_results');
+        await page.close();
+        await browser.close(); // Ensure proper cleanup
+    }
 });
