@@ -5,7 +5,7 @@
   "scripts": {
     "test": "cucumber-js",
     "generate-report": "node generateReport.js",
-    "install:playwright": "node ./node_modules/playwright/install.js"
+    "postinstall": "playwright install"
 }
 ,
   "cucumber": {
