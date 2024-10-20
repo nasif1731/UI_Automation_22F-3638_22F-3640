@@ -5,7 +5,7 @@ let browser, context, page;
 
 Given('I navigate to the Google homepage', { timeout: 20000 }, async () => {
   console.log('Launching browser...');
-  browser = await chromium.launch({ headless: false });
+  browser = await chromium.launch({ headless: true });
   context = await browser.newContext();
   page = await context.newPage();
 

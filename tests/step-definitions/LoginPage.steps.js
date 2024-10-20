@@ -12,7 +12,7 @@ function loadTestData() {
 }
 
 Given('I navigate to the login page', { timeout: 10000 }, async function () {
-    browser = await chromium.launch({ headless: false });
+    browser = await chromium.launch({ headless: true });
     context = await browser.newContext();
     this.page = await context.newPage(); 
     await this.page.goto('https://github.com/login', { waitUntil: 'networkidle' });
