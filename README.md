@@ -1,7 +1,7 @@
 # Test Automation Project Setup
 ### Date: 2024-10-18
 ## Author: 
-22F-3638
+22F-3638<br/>
 22F-3640
 ## Introduction
 This document provides an overview of the setup and dependencies required to run the test automation project. It is intended for developers and testers who wish to clone and execute the project.
@@ -30,8 +30,8 @@ Follow these steps to install the required dependencies:
    git clone <repository-url>
    cd <repository-folder>
    ```
-   <br/>
 https://github.com/nasif1731/UI_Automation_22F-3638_22F-3640.git
+<br/>
 3. Install the required dependencies:
    ```bash
    npm install playwright @cucumber/cucumber xlsx
