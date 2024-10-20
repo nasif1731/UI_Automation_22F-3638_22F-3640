@@ -22,11 +22,11 @@ Given('I navigate to the Google homepage', { timeout: 20000 }, async () => {
 
 
 When('I search for {string}', async (searchTerm) => {
-  // Wait for the textarea to be visible
+ 
   await page.waitForSelector('textarea[name="q"]', { state: 'visible', timeout: 10000 });
-  await page.fill('textarea[name="q"]', searchTerm); // Updated to use textarea
-  await page.press('textarea[name="q"]', 'Enter'); // Updated to use textarea
-  await page.waitForTimeout(2000); // Optional: Wait for results to load
+  await page.fill('textarea[name="q"]', searchTerm);
+  await page.press('textarea[name="q"]', 'Enter'); 
+  await page.waitForTimeout(2000); 
 });
 
 
@@ -37,7 +37,6 @@ Then('I should see search results related to {string}', async (searchTerm) => {
     }
 });
 
-// After hook to close the browser
 After(async () => {
     if (browser) {
         await browser.close();
