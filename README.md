@@ -30,6 +30,7 @@ Follow these steps to install the required dependencies:
    git clone <repository-url>
    cd <repository-folder>
    ```
+   <br/>
 https://github.com/nasif1731/UI_Automation_22F-3638_22F-3640.git
 3. Install the required dependencies:
    ```bash
@@ -48,6 +49,7 @@ To run the tests, use the following command:
 ```bash
 npx cucumber-js
 ```
-## Expected outcome: The tests should execute, and you should see the results in the console output.
+## Expected outcome: 
+The tests should execute, and you should see the results in the console output.
 ## Conclusion
 This document provides the necessary information to set up and run the test automation project. Ensure all dependencies are installed correctly to avoid any runtime issues.
